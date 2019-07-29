@@ -85,6 +85,7 @@ export default class ScrollingProvider extends React.Component {
     const { children } = this.props;
 
     const value = {
+      handleScroll: this.handleScroll,
       registerRef: this.registerRef,
       scrollTo: this.scrollTo,
       refList: this.refList,
