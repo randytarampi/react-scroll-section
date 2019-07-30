@@ -41,6 +41,10 @@ export default class ScrollingProvider extends React.Component {
     const { scrollOffset: offset } = this.props;
     const selected = Object.entries(this.refList).reduce(
       (acc, [key, value]) => {
+        if (!value.current) {
+          return acc;
+        }
+
         const { top } = value.current.getBoundingClientRect();
         const differenceFromTop = Math.abs(top + offset);
 
