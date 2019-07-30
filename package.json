@@ -1,6 +1,6 @@
 {
-  "name": "react-scroll-section",
-  "version": "1.3.0",
+  "name": "@randy.tarampi/react-scroll-section",
+  "version": "1.4.0",
   "description": "React library to provide a declarative scroll to between sections",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -13,7 +13,7 @@
   "scripts": {
     "build": "nwb build-react-component",
     "clean": "nwb clean-module && nwb clean-demo",
-    "prepublishOnly": "npm run build",
+    "prepbulishOnly": "npm run build",
     "start": "nwb serve-react-demo",
     "test": "nwb test-react",
     "test:coverage": "nwb test-react --coverage",
@@ -57,5 +57,8 @@
     "scrolling",
     "section",
     "declarative"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }
