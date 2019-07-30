@@ -9,6 +9,8 @@ export default class ScrollingProvider extends React.Component {
     debounceDelay: PropTypes.number,
     /** scrolling style */
     scrollBehavior: PropTypes.oneOf(['auto', 'smooth']),
+    /** scrollTo target offset (pixels) */
+    scrollOffset: PropTypes.number,
     /** React component */
     children: PropTypes.node,
   };
@@ -16,6 +18,7 @@ export default class ScrollingProvider extends React.Component {
   static defaultProps = {
     debounceDelay: 50,
     scrollBehavior: 'smooth',
+    scrollOffset: 0,
     children: null,
   };
 
@@ -35,10 +38,11 @@ export default class ScrollingProvider extends React.Component {
   }
 
   handleScroll = () => {
+    const { scrollOffset: offset } = this.props;
     const selected = Object.entries(this.refList).reduce(
       (acc, [key, value]) => {
         const { top } = value.current.getBoundingClientRect();
-        const differenceFromTop = Math.abs(top);
+        const differenceFromTop = Math.abs(top + offset);
 
         return differenceFromTop < acc.differenceFromTop
           ? {
@@ -66,15 +70,16 @@ export default class ScrollingProvider extends React.Component {
   };
 
   scrollTo = section => {
-    const { scrollBehavior: behavior } = this.props;
+    const { scrollBehavior: behavior, scrollOffset: offset } = this.props;
     const sectionRef = this.refList[section];
     if (!sectionRef) return console.warn('Section ID not recognized!');
 
     const top = sectionRef.current.offsetTop;
+    const scrollToFromTop = top + offset;
 
     return this.setState({ selected: section }, () =>
       window.scrollTo({
-        top,
+        top: scrollToFromTop,
         behavior,
       }),
     );
